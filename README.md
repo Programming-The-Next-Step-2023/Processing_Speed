@@ -17,7 +17,7 @@ The Processing Speed Index (PSI) test contains 2 parts:
     -   ![Example Task 1: Symbol Search](images/Symbol%20Search.png)
 -   Coding
     -   In this task, participants are tasked with transcribing a digit-symbol code utilizing a provided key. They type in the answer in a box underneath the question. The task imposes a time constraint (i.e., they can do as many as they can in 2 minutes).
-    -   ![Example Task 2: Coding](images/Coding-02.png)
+    -   ![Example Task 2: Coding](images/Coding.png)
 
 **Learning goals**:
 
