@@ -1,2 +1,2 @@
-# Programming_the_Next_Step_LdP
- For all my assignments, scripts and documents for the course "Programming the Next Step". 
+# Processing_Speed
+ An app that can measure your Processing Speed (i.e., part of the Wechsler Adult Intelligence Scale IV). My app for the course "Programming the Next Step". 
