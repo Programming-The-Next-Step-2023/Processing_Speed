@@ -1,6 +1,6 @@
-# Programming the Next Step
+# Measuring Processing Speed App 
 
-For all my assignments, scripts and documents for the course "Programming the Next Step".
+An app that can measure your Processing Speed (i.e., part of the Wechsler Adult Intelligence Scale IV). My app for the course "Programming the Next Step".
 
 ## Project Description
 
