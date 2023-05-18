@@ -1,3 +1,4 @@
+main
 # Measuring Processing Speed App 
 
 An app that can measure your Processing Speed (i.e., part of the Wechsler Adult Intelligence Scale IV). My app for the course "Programming the Next Step".
@@ -30,5 +31,3 @@ The Processing Speed Index (PSI) test contains 2 parts:
 -   Calculating processing speed score of participant (possibly alos
 
 -   Calculating sub-scores for the individual parts of the test
-
-
