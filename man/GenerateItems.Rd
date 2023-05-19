@@ -4,10 +4,10 @@
 \alias{GenerateItems}
 \title{Generate Symbol Search Items}
 \usage{
-GenerateItems(items = 20)
+GenerateItems(nr_items = 20)
 }
 \arguments{
-\item{items}{Numeric value of at least 3. The number of symbol search items
+\item{nr_items}{Numeric value of at least 3. The number of symbol search items
 that will be generated, the default is 20.}
 }
 \value{
@@ -22,7 +22,7 @@ numbers that can later be used to translate to symbols for the symbol
 search sub-test.
 }
 \examples{
- my_items <- GenerateItems(items = 10)
+ my_items <- GenerateItems(nr_items = 10)
  # Use this in a a shiny app
  ui <- fluidPage(
  # add the question to the top

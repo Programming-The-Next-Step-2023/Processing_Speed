@@ -5,7 +5,7 @@
 #' numbers that can later be used to translate to symbols for the symbol
 #' search sub-test.
 #'
-#' @param items Numeric value of at least 3. The number of symbol search items
+#' @param nr_items Numeric value of at least 3. The number of symbol search items
 #'              that will be generated, the default is 20.
 #'
 #' @return A list of variables of length 7, of which for half one of the first
@@ -13,7 +13,7 @@
 #'          half the 7 numbers are all different. In addition, a answer variable
 #'          is generated with the correct answers to each item.
 #' @examples
-#'  my_items <- GenerateItems(items = 10)
+#'  my_items <- GenerateItems(nr_items = 10)
 #'  # Use this in a a shiny app
 #'  ui <- fluidPage(
 #'  # add the question to the top
