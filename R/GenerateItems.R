@@ -1,17 +1,39 @@
-# Some useful keyboard shortcuts for package authoring:
-#
-#   Install Package:           'Ctrl + Shift + B'
-#   Check Package:             'Ctrl + Shift + E'
-#   Test Package:              'Ctrl + Shift + T'
-
-# A function that generates a editable amount of items expressed in
-# numbers that can later be used to translate to symbols for the symbol
-# search subtest
-GenerateItems <- function(items) {
+#' Generate Symbol Search Items
+#'
+#' @description
+#' A function that generates an editable amount of items expressed in
+#' numbers that can later be used to translate to symbols for the symbol
+#' search sub-test.
+#'
+#' @param items Numeric value of at least 3. The number of symbol search items
+#'              that will be generated, the default is 20.
+#'
+#' @return A list of variables of length 7, of which for half one of the first
+#'          two numbers is repeated in the next 5 numbers, and for the other
+#'          half the 7 numbers are all different. In addition, a answer variable
+#'          is generated with the correct answers to each item.
+#' @examples
+#'  my_items <- GenerateItems(items = 10)
+#'  # Use this in a a shiny app
+#'  ui <- fluidPage(
+#'  # add the question to the top
+#'  mainPanel(
+#'  "Is either one of the two symbols on the left, also on the right side?",
+#'  width = 20),
+#'  # the first of seven buttons that all have one of the symbols of the first item
+#'  actionButton(
+#'  inputId = "symbol1",
+#'  all_symbols[my_items[["items"]][["item_1"]][1]],
+#'  class = "btn-lg btn-primary",
+#'  disabled="disabled"))
+#'
+#' @export
+#'
+GenerateItems <- function(nr_items = 20) {
 
   # setting up some variables
   i <- 0
-  half_items <- ceiling(items/2)
+  half_items <- ceiling(nr_items/2)
   all_diff <- list()
   six_diff <- NULL
   one_same <- list()
@@ -48,10 +70,10 @@ GenerateItems <- function(items) {
   # incongruent items after that), and then generating a random order. Then
   # using this order putting them in a random order.
   all_in_order <- c(one_same, all_diff)
-  item_order <- sample(1:items, items)
+  item_order <- sample(1:nr_items, nr_items)
   items_list <- list()
   l <- 0
-  for (l in 1:items) {
+  for (l in 1:nr_items) {
     items_list[[l]] <- all_in_order[[item_order[l]]]
   }
 
@@ -59,13 +81,13 @@ GenerateItems <- function(items) {
   # If the item is a 'incongruent' item, the answer will be coded as 0.
   answers_combin <- c(correct_numbers,rep(0,length(all_diff)))
   correct_answers <- numeric()
-  for (l in 1:items) {
+  for (l in 1:nr_items) {
     correct_answers[l] <- answers_combin[[item_order[l]]]
   }
 
   # making a clear list of the two things to return, namely the items and the
   # correct answers
-  names(items_list) <-   paste("item",1:items,sep = "_")
+  names(items_list) <-   paste("item",1:nr_items,sep = "_")
   items_answers <- list("items" = items_list, answers = correct_answers)
 
   return(items_answers)

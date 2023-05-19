@@ -3,14 +3,14 @@
 # the 'Run App' button above.
 #
 
-library(shiny)
-library("fontawesome")
-
 ui <- fluidPage(
+  # first make a header of the task, and add the question to the top
   titlePanel("Symbol Search"),
   mainPanel(
     "Is either one of the two symbols on the left, also on the right side?",
     width = 20),
+  # seven buttons that all have one of the symbols of the first item, and
+  # one butten with "no"
   actionButton(
     inputId = "symbol1",
     all_symbols[my_items[["items"]][["item_1"]][1]],
