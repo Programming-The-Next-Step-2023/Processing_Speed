@@ -14,10 +14,10 @@ The Processing Speed Index (PSI) test contains 2 parts:
 
 -   Symbol Search
     -   In this task, participants are required to observe rows of symbols and target symbols, and indicate the presence or absence of the target symbols in each row. They can indicate this by pushing a button on the keyboard (i.e., "1" for yes, and "0" for no).
-    -   ![Example Task 1: Symbol Search](images/Symbol%20Search.png)
+    -   ![Task 1: Symbol Search](Images/Symbol%20Search.png)
 -   Coding
     -   In this task, participants are tasked with transcribing a digit-symbol code utilizing a provided key. They type in the answer in a box underneath the question. The task imposes a time constraint (i.e., they can do as many as they can in 2 minutes).
-    -   ![Example Task 2: Coding](images/Coding.png)
+    -   ![Task 2: Coding](Images/Coding.png)
 
 **Learning goals**:
 

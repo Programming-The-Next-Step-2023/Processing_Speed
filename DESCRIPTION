@@ -1,0 +1,21 @@
+Package: ProcessingSpeed
+Title: Measure Your Processing Speed With This App
+Version: 0.0.0.9000
+Authors@R: 
+    person("Lisette", "de Putter", , "lisettedeputter@gmail.com", role = c("aut", "cre"))
+Description: This package contains a shiny app that consists of two games,
+    the first one is called the "symbol search" and the second is called "coding". 
+    The outcome on these two games determines the end score which is a measure of 
+    processing speed. Processing speed is a sub-scale of the Wechsler Adult 
+    Intelligence Scale IV.
+License: `use_mit_license()`
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.3
+Imports: 
+    shiny,
+    fontawesome
+Suggests: 
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
