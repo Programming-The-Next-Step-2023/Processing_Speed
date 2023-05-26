@@ -21,6 +21,3 @@ all_symbols <- list(
   shiny::icon("circle-half-stroke", class = "fa-xl"),
   shiny::icon("draw-polygon", class = "fa-xl")
 )
-
-my_items <- GenerateItems(10)
-my_items$answers

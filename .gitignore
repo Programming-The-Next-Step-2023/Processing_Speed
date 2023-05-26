@@ -6,3 +6,4 @@
 .gitattributes
 .git
 .Rbuildignore
+inst/doc
