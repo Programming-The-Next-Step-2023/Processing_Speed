@@ -6,7 +6,7 @@
 #' search sub-test.
 #'
 #' @param nr_items Numeric value of at least 3. The number of symbol search items
-#'              that will be generated, the default is 20.
+#'              that will be generated, the default is 60.
 #'
 #' @return A list of variables of length 7, of which for half one of the first
 #'          two numbers is repeated in the next 5 numbers, and for the other
@@ -29,7 +29,11 @@
 #'
 #' @export
 #'
+<<<<<<< Updated upstream
 GenerateItems <- function(nr_items = 20) {
+=======
+GenerateItems <- function(nr_items = 60) {
+>>>>>>> Stashed changes
 
   # setting up some variables
   i <- 0
