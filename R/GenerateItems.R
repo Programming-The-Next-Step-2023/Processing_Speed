@@ -12,9 +12,10 @@
 #'          two numbers is repeated in the next 5 numbers, and for the other
 #'          half the 7 numbers are all different. In addition, a answer variable
 #'          is generated with the correct answers to each item.
+#'
 #' @examples
 #'  my_items <- GenerateItems(nr_items = 10)
-#'  # Use this in a a shiny app
+#'  # Use this in a shiny app
 #'  ui <- fluidPage(
 #'  # add the question to the top
 #'  mainPanel(
@@ -29,7 +30,7 @@
 #'
 #' @export
 #'
-GenerateItems <- function(nr_items = 20) {
+GenerateItems <- function(nr_items = 30) {
 
   # setting up some variables
   i <- 0
@@ -85,11 +86,22 @@ GenerateItems <- function(nr_items = 20) {
     correct_answers[l] <- answers_combin[[item_order[l]]]
   }
 
-  # making a clear list of the two things to return, namely the items and the
-  # correct answers
+  # For the app we need the locations and names of the buttons of the correct
+  # answers, so generate this.
+  congruent_items <- correct_answers != 0
+  correct_location <- rep(6, nr_items)
+  correct_buttons <- rep("no", nr_items)
+  for (k in which(congruent_items)) {
+    correct_location[k] <- which(items_list[[k]][3:7]==correct_answers[k])
+    correct_buttons[k] <- paste("symbol", correct_location[k], sep = "")
+  }
+
+  # making a clear list of the things to return, namely the items and the
+  # correct answer locations and button names
   names(items_list) <-   paste("item",1:nr_items,sep = "_")
-  items_answers <- list("items" = items_list, answers = correct_answers)
+  items_answers <- list("items" = items_list,
+                        answer_location = correct_location,
+                        answer_buttons = correct_buttons)
 
   return(items_answers)
 }
-
