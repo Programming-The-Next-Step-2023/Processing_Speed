@@ -2,18 +2,13 @@
 # This is a Shiny web application. You can run the application by clicking
 # the 'Run App' button above.
 #
+#'@import shiny
+#'@import lubridate
+#'@import bslib
+#'
 require(shiny)
 require(lubridate)
 require(bslib)
-# First generate some items using the GenerateItems function from this package
-my_items <- GenerateItems()
-# Then set the item & correct item counter to 1 & 0 as the start values
-current_item <- reactiveVal(1)
-correct_count <- reactiveVal(0)
-# Initialize the timer, 60 seconds, starts as not active.
-timer_setting <- 60
-timer <- reactiveVal(timer_setting)
-active <- reactiveVal(FALSE)
 
 # the UI
   ui <- fluidPage(
@@ -55,11 +50,24 @@ active <- reactiveVal(FALSE)
                                   font-family:Schneidler Blk BT"),
                     textOutput("score")
                     )),
-    span(textOutput("timeleft"),style = "color:#cf571d; font-type:bold"),
-    uiOutput("save")
+
+    conditionalPanel("input.save==0",
+      span(textOutput("timeleft"),style = "color:#cf571d; font-type:bold"),
+      uiOutput("save")
+      ),
+    plotOutput("plot")
     )
 
   server <- function(input, output, session) {
+    # First generate some items using the GenerateItems function from this package
+    my_items <- GenerateItems(60)
+    # Then set the item & correct item counter to 1 & 0 as the start values
+    current_item <- reactiveVal(1)
+    correct_count <- reactiveVal(0)
+    # Initialize the timer, 60 seconds, starts as not active.
+    timer_setting <- 60
+    timer <- reactiveVal(timer_setting)
+    active <- reactiveVal(FALSE)
     # Explanation of task to reader
     output$explanation <- renderText("In this task, you will get to see rows
                                      consisting of 2 target symbols and 5 search
@@ -105,7 +113,7 @@ active <- reactiveVal(FALSE)
               where = "afterEnd",
               ui = actionButton(
               inputId = "save",
-              label = "What is my Processing Speed?",
+              label = "Save & See My Results",
               class = "btn",
               style = "color:#FBF9F6;
                        background-color:#E2A55E;
@@ -182,22 +190,57 @@ active <- reactiveVal(FALSE)
     })
 
     observeEvent(input$save, {
-      counters <- reactiveValues(correct = correct_count(), total_items = current_item()-1)
-      to_save <- reactiveValuesToList(counters)
-      to_save$time <- timer_setting
-      scores <- readRDS(file = "scores.rds")
+      # First saving the data from the current run
+      to_save <- list(correct = correct_count(),
+                       total_items = current_item() - 1,
+                       time = timer_setting - timer())
+      scores <- readRDS(file = "~/GitHub/ProcessingSpeed/data/scores.rds")
       to_save$total_items <- c(to_save$total_items, scores$total_items)
       to_save$correct <- c(to_save$correct, scores$correct)
       to_save$time <- c(to_save$time, scores$time)
-      saveRDS(to_save, file = "scores.rds")
-      # output$explanation <- renderText(paste(to_save))
-      removeUI(
-        selector = paste0("#", getInputs(input, "save")),
-        multiple = T
+      saveRDS(to_save, file = "~/GitHub/ProcessingSpeed/data/scores.rds")
+      # Then using the data to visualize the score of the current person
+      # in comparison with previous scores
+      scores_df <- as.data.frame(to_save)
+
+      # Giving the option to choose the type of graph displayed
+      insertUI(
+        selector = "#plot",
+        where = "beforeBegin",
+        ui = selectInput(
+            inputId = "choose_plot",
+            label = "Choose a Plot",
+            selected = "",
+            choices = list("Total Score" = "total_score",
+                           "Total Items per Minute" = "correct",
+                           "Total Items Incorrect" = "incorrect",
+                           "Seconds per Correct Item" = "seconds_per_correct")
+            )
+        )
+
+      # calculating the right scores to make histograms of
+      scores_df$seconds_per_correct <- scores_df$time/scores_df$correct
+      scores_df$incorrect <- scores_df$total_items-scores_df$correct
+      scores_df$total_score <- scores_df$correct-scores_df$incorrect
+
+      # making list with names for the x-axis of the plots
+      plot_names <- list("total_score" ="Total Score (Items Correct - Items Incorrect)",
+                      "correct" = "Total Number of Correct Items per Minute",
+                      "incorrect" = "Total Number of Incorrect Items per Minute",
+                      "seconds_per_correct" = "Number of Seconds per Item")
+
+      # When "choose_plot" changes, display the plot that they have selected
+      observeEvent(input$choose_plot, {
+                    output$plot <- renderPlot({
+                      par(bg="#e9edf0")
+                      highlight(x = scores_df[[input$choose_plot]],
+                                value = scores_df[[input$choose_plot]][1],
+                                main = "Distribution of Scores",
+                                xlab = plot_names[[input$choose_plot]])
+                      legend(x ="topright", legend = "Your Score", fill = "#CF7041", bty = "n")
+                      })
+                    }
+
       )
     })
-
   }
-
-# Run the application
-shinyApp(ui, server)
